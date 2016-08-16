@@ -1,5 +1,5 @@
-# Beaver-o
-Beaver-o is simple Ruby tasker programmed for webdevelopment.
+# Beavero
+Beavero is simple Ruby tasker programmed for webdevelopment.
 
 It is based on idea, that - practically - every file in app has its unique name.
 Therefore whole app can be compiled to one, flat folder.

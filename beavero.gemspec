@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name        = 'Beaver-o'
+  s.name        = 'Beavero'
   s.version     = '0.1.0'
   s.summary     = "Beaver-o - Ruby tasker programmed for webdevelopment"
   s.description = "Beaver-o - Ruby tasker programmed for webdevelopment"
