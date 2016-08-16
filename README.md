@@ -4,6 +4,7 @@ Beavero is simple Ruby tasker programmed for webdevelopment.
 It is based on idea, that - practically - every file in app has its unique name.
 Therefore whole app can be compiled to one, flat folder.
 Moreover it enforces app structure, preprocessors (for now), and file types.
+So, it is: *convention over configuration*.
 
 ## Preprocessors
 Here are listed prepocessors used by Beaver-o:
