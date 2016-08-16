@@ -1,7 +1,14 @@
 require 'test/unit'
 require 'beavero.rb'
 
-Dir.chdir( 'tests/test_enviroment' )
+# Switch to test enviroment
+Dir.chdir( 'tests/test_enviroment' ) # DO NOT REMOVE (! IMPORTANT !) - Once I wiped out whole project after removing this line
+
+# Clean test enviroment
+FileUtils.rm_rf( Dir.glob( './*' ) )
+
+# Create test enviroment
+FileUtils.copy_entry( '../test_enviroment_configuration', '.' )
 
 # Run build
 $beavero = Beavero.new

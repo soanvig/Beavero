@@ -1,14 +1,5 @@
 require 'rake/testtask'
 
-# Switch to test enviroment
-Dir.chdir( 'tests/test_enviroment' ) # DO NOT REMOVE (! IMPORTANT !) - Once I wiped out whole project after removing this line
-
-# Clean test enviroment
-FileUtils.rm_rf( Dir.glob( './*' ) )
-
-# Create test enviroment
-FileUtils.copy_entry( '../test_enviroment_configuration', '.' )
-
 # Test build
 Rake::TestTask.new do |t|
   t.libs << "tests"
