@@ -9,18 +9,18 @@ class Beavero
   private
 
   def self.load_configuration
-    # TODO: configuration file
-    @@config = {}
+    require 'json'
+    config_path = './beavero_config.json'
 
-    @@config[:modules] = ['static', 'vendor']
+    if( File.exists(config_path) )
+      @@config = JSON.parse( File.read('./beavero_config.json'), symbolize_names: true )
+      @@config[:paths][:app] = Dir.pwd
 
-    @@config[:paths] = {}
-    @@config[:paths][:app] = Dir.pwd
-    @@config[:paths][:output] = 'public'
-    @@config[:paths][:vendor] = 'vendor'
-    @@config[:paths][:static] = 'static'
-
-    @@modules = []
+      @@modules = []
+    else
+      # The config file doesn't exist. Cannot proceed
+      abort
+    end
   end
 
   def self.load_modules

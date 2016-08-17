@@ -1,0 +1,12 @@
+{
+  "modules": [
+    "static",
+    "vendor"
+  ],
+
+  "paths": {
+    "output": "./public/",
+    "vendor": "./vendor/",
+    "static": "./static/"
+  }
+}

@@ -37,3 +37,9 @@ and everything in *vendor* is treated as outside code, so copied without touchin
     - \*.css
 - static
 - public
+
+## TODO
+- Logger
+- SASS module
+- Uglifier module
+- Slim module
