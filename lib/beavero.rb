@@ -1,43 +1,60 @@
 class Beavero
-  attr_accessor :paths
-
-  def initialize
-
-  end
-
-  def build
-    define_paths
+  def self.build
+    load_configuration
+    load_modules
     create_output
-    compile_vendor
-    compile_static
+    build_modules
   end
 
   private
 
-  def define_paths
-    @paths = {} unless @paths
+  def self.load_configuration
+    # TODO: configuration file
+    @@config = {}
 
-    @paths[:output] = './public/'
-    @paths[:static] = './static/'
-    @paths[:vendor] = './vendor/'
+    @@config[:modules] = ['static', 'vendor']
+
+    @@config[:paths] = {}
+    @@config[:paths][:app] = Dir.pwd
+    @@config[:paths][:output] = 'public'
+    @@config[:paths][:vendor] = 'vendor'
+    @@config[:paths][:static] = 'static'
+
+    @@modules = []
+  end
+
+  def self.load_modules
+    @@modules = []
+
+    @@config[:modules].each do |mod|
+      # Join modules' names into paths beavero/module_name and require
+      require_relative File.join( 'beavero', mod + '.rb' )
+
+      # Convert module name to constant objects (required to include module)
+      @@modules << Object.const_get('Beavero' + mod.capitalize)
+    end
+
+    # Include modules (unnecessary)
+    # class_eval do
+    #   @@modules.each do |mod|
+    #     extend mod
+    #   end
+    # end
   end
 
   # Remove old output and create new one
-  def create_output
-    FileUtils.rm_rf @paths[:output]
-    FileUtils.mkdir_p @paths[:output]
+  def self.create_output
+    FileUtils.rm_rf @@config[:paths][:output]
+    FileUtils.mkdir_p @@config[:paths][:output]
   end
 
-  # Compile vendor directory
-  def compile_vendor
-    # Full copy
-    FileUtils.copy_entry( @paths[:vendor], @paths[:output] )
+  def self.build_modules
+    @@modules.each do |mod|
+      if(mod.respond_to? 'build')
+        mod.send('build', @@config)
+      else
+        # WARNING: Module doesn't respond to build, ignoring
+      end
+    end
   end
-
-  # Compile static directory
-  def compile_static
-    # Full copy
-    FileUtils.copy_entry( @paths[:static], @paths[:output] )
-  end
-
 end

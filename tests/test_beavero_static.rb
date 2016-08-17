@@ -1,7 +1,7 @@
 require 'test/unit'
 require 'beavero.rb'
 
-class TestBeavero < Test::Unit::TestCase
+class TestBeaveroStatic < Test::Unit::TestCase
   def setup
     # Switch to test enviroment
     Dir.chdir('tests/test_enviroment')
@@ -20,7 +20,15 @@ class TestBeavero < Test::Unit::TestCase
     Dir.chdir('../..')
   end
 
-  def test_create_output
-    assert( Dir.exist?( 'public' ) )
+  def test_build
+    Dir.chdir('static')
+    static_files = Dir.glob('./**/*')
+
+    Dir.chdir('../public')
+    public_files = Dir.glob('./**/*')
+
+    assert_equal( static_files - public_files, [] )
+
+    Dir.chdir('..')
   end
 end
