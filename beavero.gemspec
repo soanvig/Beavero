@@ -9,4 +9,5 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://rubygems.org/gems/beavero'
   s.license     = 'MIT'
   s.add_runtime_dependency 'json', '~> 0'
+  s.add_runtime_dependency 'logger', '~> 0'
 end

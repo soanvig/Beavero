@@ -1,14 +1,31 @@
 require 'json'
+require 'logger'
 
 class Beavero
   def self.build
+    load_logger
     load_configuration
     load_modules
     create_output
     build_modules
   end
 
+
+  # Log message (https://ruby-doc.org/stdlib-2.1.0/libdoc/logger/rdoc/Logger.html)
+  # @param message (string) - message to show
+  # @param level (string) - ('unknown', 'fatal', 'error', 'warn', 'info', 'debug') default: 'info'
+  def self.log( message, level = 'info' )
+    if(@@logger)
+      @@logger.send(level, message)
+    end
+  end
+
   private
+
+  def self.load_logger
+    @@logger = Logger.new(STDOUT)
+    @@logger.level = Logger::INFO
+  end
 
   def self.load_configuration
     config_path = './beavero_config.json'
