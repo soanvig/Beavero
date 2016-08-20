@@ -1,3 +1,5 @@
+require 'json'
+
 class Beavero
   def self.build
     load_configuration
@@ -9,10 +11,9 @@ class Beavero
   private
 
   def self.load_configuration
-    require 'json'
     config_path = './beavero_config.json'
 
-    if( File.exists(config_path) )
+    if( File.exist?(config_path) )
       @@config = JSON.parse( File.read('./beavero_config.json'), symbolize_names: true )
       @@config[:paths][:app] = Dir.pwd
 
@@ -28,7 +29,7 @@ class Beavero
 
     @@config[:modules].each do |mod|
       # Join modules' names into paths beavero/module_name and require
-      require_relative File.join( 'beavero', mod + '.rb' )
+      require File.join( 'beavero', mod + '.rb' )
 
       # Convert module name to constant objects (required to include module)
       @@modules << Object.const_get('Beavero' + mod.capitalize)
