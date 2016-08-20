@@ -3,7 +3,6 @@ require 'logger'
 
 class Beavero
   def self.build
-    load_logger
     load_configuration
     load_modules
     create_output
@@ -15,16 +14,17 @@ class Beavero
   # @param message (string) - message to show
   # @param level (string) - ('unknown', 'fatal', 'error', 'warn', 'info', 'debug') default: 'info'
   def self.log( message, level = 'info' )
-    if(@@logger)
-      @@logger.send(level, message)
-    end
+    load_logger unless defined? @@logger
+    @@logger.send(level, message)
   end
 
   private
 
   def self.load_logger
-    @@logger = Logger.new(STDOUT)
-    @@logger.level = Logger::INFO
+    unless defined? @@logger
+      @@logger = Logger.new(STDOUT)
+      @@logger.level = Logger::INFO
+    end
   end
 
   def self.load_configuration
@@ -36,7 +36,7 @@ class Beavero
 
       @@modules = []
     else
-      # The config file doesn't exist. Cannot proceed
+      log("Config file doesn't exist. Cannot proceed, quiting.", 'error')
       abort
     end
   end
@@ -71,7 +71,7 @@ class Beavero
       if(mod.respond_to? 'build')
         mod.send('build', @@config)
       else
-        # WARNING: Module doesn't respond to build, ignoring
+        log("Module doesn't respond to 'build'. Ignoring.", 'warn')
       end
     end
   end
