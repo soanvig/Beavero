@@ -39,7 +39,7 @@ and everything in *vendor* is treated as outside code, so copied without touchin
 - public
 
 ## TODO
-- Logger
+- Logger message format
 - SASS module
 - Uglifier module
 - Slim module
