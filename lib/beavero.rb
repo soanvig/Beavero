@@ -1,6 +1,7 @@
 require 'json'
 require 'logger'
 require 'colorize'
+require 'fileutils'
 
 class Beavero
   def self.build
@@ -66,6 +67,8 @@ class Beavero
     @@config[:colors][:debug]   = { color: :white }
     @@config[:colors][:warn]    = { color: :yellow }
 
+    @@config[:modules] = ['static', 'vendor']
+
     if( File.exist?(config_path) )
       # Merging will overwrite defaults
       @@config.merge( JSON.parse( File.read('./beavero_config.json'), symbolize_names: true ) )
@@ -79,18 +82,11 @@ class Beavero
 
     @@config[:modules].each do |mod|
       # Join modules' names into paths beavero/module_name and require
-      require File.join( 'beavero', mod + '.rb' )
+      require File.join( 'beavero', mod )
 
       # Convert module name to constant objects (required to include module)
       @@modules << Object.const_get('Beavero' + mod.capitalize)
     end
-
-    # Include modules (unnecessary)
-    # class_eval do
-    #   @@modules.each do |mod|
-    #     extend mod
-    #   end
-    # end
   end
 
   # Remove old output and create new one
