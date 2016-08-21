@@ -71,7 +71,7 @@ class Beavero
 
     if( File.exist?(config_path) )
       # Merging will overwrite defaults
-      @@config.merge( JSON.parse( File.read('./beavero_config.json'), symbolize_names: true ) )
+      @@config = @@config.deep_merge( JSON.parse( File.read('./beavero_config.json'), symbolize_names: true ) )
     else
       log("Config file doesn't exist. Using defaults only.", 'warn')
     end
@@ -102,6 +102,14 @@ class Beavero
       else
         log("Module doesn't respond to 'build'. Ignoring.", 'warn')
       end
+    end
+  end
+
+  # deep_merge function by Dan from SO, used for merging configuration
+  class ::Hash
+    def deep_merge(second)
+      merger = proc { |key, v1, v2| Hash === v1 && Hash === v2 ? v1.merge(v2, &merger) : Array === v1 && Array === v2 ? v1 | v2 : [:undefined, nil, :nil].include?(v2) ? v1 : v2 }
+      self.merge(second.to_h, &merger)
     end
   end
 end
