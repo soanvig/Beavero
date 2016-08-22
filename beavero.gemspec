@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'Beavero'
-  s.version     = '0.2.3'
+  s.version     = '0.2.4'
   s.summary     = 'Beaver-o - Ruby tasker programmed for webdevelopment'
   s.description = 'Beaver-o - Ruby tasker programmed for webdevelopment'
   s.author      = 'Schizohatter'
@@ -9,5 +9,6 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://rubygems.org/gems/beavero'
   s.license     = 'MIT'
   s.add_runtime_dependency 'logger'
-  s.add_runtime_dependency 'colorize'
+  s.add_runtime_dependency 'colorize', '>= 0.8.1'
+  s.add_runtime_dependency 'sass', '>= 3.4.22'
 end

@@ -39,6 +39,5 @@ and everything in *vendor* is treated as outside code, so copied without touchin
 - public
 
 ## TODO
-- SASS module
 - Uglifier module
 - Slim module
