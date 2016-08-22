@@ -4,8 +4,19 @@ module BeaveroStatic
   end
 
   def self.build(config)
-    source = File.join( config[:paths][:app], config[:paths][:static] )
-    target = File.join( config[:paths][:app], config[:paths][:output] )
+    check_configuration(config)
+
+    source = File.join( @@config[:paths][:app], @@config[:paths][:static] )
+    target = File.join( @@config[:paths][:app], @@config[:paths][:output] )
     FileUtils.copy_entry( source, target )
+  end
+
+  private
+
+  def self.check_configuration(config)
+    @@config = config
+
+    # Defaults
+    @@config[:paths][:static] = './static/' unless @@config[:paths][:static]
   end
 end
