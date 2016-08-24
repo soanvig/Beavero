@@ -135,6 +135,22 @@ paths/js | String | `./assets/js/` | Path of directory with JS files
 js/combine | Boolean ([true, false]) | `false` | Determines whether JS files should be compiled into one file or not
 js/combine_name | String | `app` | If *js/combine* is set to true, then *js/combine_name* determines the name of combined file
 
+## Release plan
+https://github.com/soanvig/Beavero/releases
+Release plan below is updated systematically
+
+- [x] v0.1.0 Beavero class, Static and Vendor support
+- [x] v0.2.0 Modules
+- [x] v0.2.1 Configuration file
+- [x] v0.2.2 Logger
+- [x] v0.2.3 Logger colors, modules configuration
+- [x] v0.3.0 Sass module
+- [x] v0.4.0 Uglifier module
+- [ ] v0.4.1 Upgade configurations for Sass and Uglifier
+- [ ] v0.4.2 Add logs to everything
+- [ ] v0.5.0 Slim module
+- [ ] v1.0.0 Beavero official release along with binary for command-line execution
+
 ## TODO
 - Slim module
 - README "advices" section
