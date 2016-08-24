@@ -71,7 +71,7 @@ class Beavero
     @@config[:colors][:debug]   = { color: :white }
     @@config[:colors][:warn]    = { color: :yellow }
 
-    @@config[:modules] = ['static', 'vendor']
+    @@config[:modules] = []
 
     if( File.exist?(config_path) )
       # Merging will overwrite defaults
