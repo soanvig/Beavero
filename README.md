@@ -137,6 +137,7 @@ js/combine_name | String | `app` | If *js/combine* is set to true, then *js/comb
 
 ## Release plan
 https://github.com/soanvig/Beavero/releases
+
 Release plan below is updated systematically
 
 - [x] v0.1.0 Beavero class, Static and Vendor support
