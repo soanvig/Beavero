@@ -2,6 +2,7 @@
   "modules": [
     "static",
     "vendor",
-    "sass"
+    "sass",
+    "uglifier"
   ]
 }

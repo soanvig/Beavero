@@ -32,6 +32,10 @@ class Beavero
     end
   end
 
+  def self.config
+    @@config
+  end
+
   private
 
   def self.load_logger

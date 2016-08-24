@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'Beavero'
-  s.version     = '0.3.0'
+  s.version     = '0.4.0'
   s.summary     = 'Beavero - Ruby tasker programmed for webdevelopment'
   s.description = 'Beavero - Ruby tasker programmed for webdevelopment. This is pre-release version!
   More information on https://github.com/soanvig/beavero'
