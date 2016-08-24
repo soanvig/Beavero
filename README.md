@@ -1,4 +1,6 @@
 # Beavero
+[![Version v0.4.0](https://img.shields.io/badge/Version-v0.4.0-brightgreen.svg?style=flat)](https://github.com/soanvig/Beavero/releases)
+
 Beavero is simple Ruby tasker programmed for webdevelopment.
 
 It is based on idea, that - practically - every file in app has its unique name.
@@ -95,7 +97,7 @@ However, you should be careful, because **file combining order is not guranteed*
 Whole custom configuration is handled by one file: `beavero_config.json`, which is a JSON file.
 
 Beavero doesn't require this file to exist - every module is prepared to work with its default configuration.
-However you **must to** define modules you want to use. Otherwise only static and vendor modules will be used.
+However you **must to** define modules you want to use. Otherwise no modules will be used.
 
 Sample configuration file can look like this:
 ```json
@@ -124,7 +126,7 @@ Sample configuration file can look like this:
 
 Key | Values | Default | Description
 --- | ------ | ------- | -----------
-modules | ["static", "vendor", "sass", "uglifier"] | ["static", "vendor"] | Modules which should be used by Beavero
+modules | ["static", "vendor", "sass", "uglifier"] | None | Modules which should be used by Beavero
 paths/app | String | Beavero's script execution path | Beavero's working directory (system absolute path)
 paths/output | String | `./public/` | Output of Beavero's building
 
