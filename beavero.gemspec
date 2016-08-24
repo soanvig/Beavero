@@ -1,12 +1,12 @@
 Gem::Specification.new do |s|
   s.name        = 'Beavero'
   s.version     = '0.2.4'
-  s.summary     = 'Beaver-o - Ruby tasker programmed for webdevelopment'
-  s.description = 'Beaver-o - Ruby tasker programmed for webdevelopment'
+  s.summary     = 'Beavero - Ruby tasker programmed for webdevelopment'
+  s.description = 'Beavero - Ruby tasker programmed for webdevelopment. This is pre-release version!'
   s.author      = 'Schizohatter'
   s.email       = 'soanvig@gmail.com'
   s.files       = ['lib/beavero.rb', 'lib/beavero/static.rb', 'lib/beavero/vendor.rb']
-  s.homepage    = 'http://rubygems.org/gems/beavero'
+  s.homepage    = 'https://github.com/soanvig/beavero'
   s.license     = 'MIT'
   s.add_runtime_dependency 'logger'
   s.add_runtime_dependency 'colorize', '>= 0.8.1'
