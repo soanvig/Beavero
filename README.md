@@ -8,6 +8,29 @@ So, it is: *convention over configuration* (however a lot of things [like paths]
 
 **This is pre-release version** (more information at https://github.com/soanvig/Beavero/releases).
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Preprocessors](#preprocessors)
+- [App tree](#app-tree)
+- [Modules](#modules)
+  - [Static](#static)
+  - [Vendor](#vendor)
+  - [Sass](#sass)
+  - [Uglifier](#uglifier)
+- [Configuration](#configuration)
+  - [Configuration table](#configuration-table)
+    - [Beavero](#beavero)
+    - [Static](#static-1)
+    - [Vendor](#vendor-1)
+    - [Sass](#sass-1)
+    - [Uglifier](#uglifier-1)
+- [Release plan](#release-plan)
+- [TODO](#todo)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Preprocessors
 Here are listed prepocessors used by Beaver-o:
 - HTML: Slim (http://slim-lang.com)
