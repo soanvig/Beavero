@@ -2,7 +2,8 @@ Gem::Specification.new do |s|
   s.name        = 'Beavero'
   s.version     = '0.2.4'
   s.summary     = 'Beavero - Ruby tasker programmed for webdevelopment'
-  s.description = 'Beavero - Ruby tasker programmed for webdevelopment. This is pre-release version!'
+  s.description = 'Beavero - Ruby tasker programmed for webdevelopment. This is pre-release version!
+  More information on https://github.com/soanvig/beavero'
   s.author      = 'Schizohatter'
   s.email       = 'soanvig@gmail.com'
   s.files       = ['lib/beavero.rb', 'lib/beavero/static.rb', 'lib/beavero/vendor.rb']
