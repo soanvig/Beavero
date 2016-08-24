@@ -21,7 +21,7 @@ So, it is: *convention over configuration* (however a lot of things [like paths]
   - [Uglifier](#uglifier)
 - [Configuration](#configuration)
   - [Configuration table](#configuration-table)
-    - [Beavero](#beavero)
+    - [Basic](#basic)
     - [Static](#static-1)
     - [Vendor](#vendor-1)
     - [Sass](#sass-1)
@@ -120,7 +120,7 @@ Sample configuration file can look like this:
 
 ### Configuration table
 
-#### Beavero
+#### Basic
 
 Key | Values | Default | Description
 --- | ------ | ------- | -----------
