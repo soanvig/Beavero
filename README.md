@@ -6,6 +6,8 @@ Therefore whole app can be compiled to one, flat folder.
 Moreover it enforces app structure, preprocessors (for now), and file types.
 So, it is: *convention over configuration* (however a lot of things [like paths], can be configured via config file).
 
+*This is pre-release version* (more information at https://github.com/soanvig/Beavero/releases).
+
 ## Preprocessors
 Here are listed prepocessors used by Beaver-o:
 - HTML: Slim (http://slim-lang.com)
