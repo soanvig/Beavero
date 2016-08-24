@@ -68,6 +68,74 @@ and saved in output directory with the same name but with *.min.js* suffix.
 Uglifier module can be set in *combine* mode, which causes all files to be minified and combined into one file.
 However, you should be careful, because **file combining order is not guranteed**. If your code depends on including order it can cause problems.
 
+## Configuration
+Whole custom configuration is handled by one file: `beavero_config.json`, which is a JSON file.
+
+Beavero doesn't require this file to exist - every module is prepared to work with its default configuration.
+However you **must to** define modules you want to use. Otherwise only static and vendor modules will be used.
+
+Sample configuration file can look like this:
+```json
+{
+  "modules": [
+    "static",
+    "vendor",
+    "sass",
+    "uglifier"
+  ],
+  "sass": {
+    "style": "nested",
+    "main_file": "app.scss",
+    "output": "style"
+  },
+  "paths": {
+    "sass": "./assets/style",
+    "output": "./output"
+  }
+}
+```
+
+### Configuration table
+
+#### Beavero
+
+Key | Values | Default | Description
+--- | ------ | ------- | -----------
+modules | ["static", "vendor", "sass", "uglifier"] | ["static", "vendor"] | Modules which should be used by Beavero
+paths/app | String | Beavero's script execution path | Beavero's working directory (system absolute path)
+paths/output | String | `./public/` | Output of Beavero's building
+
+#### Static
+
+Key | Values | Default | Description
+--- | ------ | ------- | -----------
+paths/static | String | `./static/` | Path of directory with static files
+
+#### Vendor
+
+Key | Values | Default | Description
+--- | ------ | ------- | -----------
+paths/vendor | String | `./vendor/` | Path of directory with vendor files
+
+#### Sass
+
+Key | Values | Default | Description
+--- | ------ | ------- | -----------
+paths/sass | String | `./assets/scss/` | Path of directory with SASS files
+sass/syntax | ["scss", "sass"] | Determined by `main_file` extension | Syntax used by SASS to compile files. See [SASS Indented Synax](http://sass-lang.com/documentation/file.INDENTED_SYNTAX.html) (*sass* syntax) for more details.
+sass/style | ["nested", "expanded", "compact", "compressed"] | `compressed` | SASS output style. See more on [SASS documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style)
+sass/output | String | Determined by `main_file` filename | Name of output CSS file
+sass/main_file | String | `main.scss` | Name of SASS file which will be looked for in module's directory by Beavero. This is the starting point for all CSS/SASS directives
+
+#### Uglifier
+
+Key | Values | Default | Description
+--- | ------ | ------- | -----------
+paths/js | String | `./assets/js/` | Path of directory with JS files
+js/combine | Boolean ([true, false]) | `false` | Determines whether JS files should be compiled into one file or not
+js/combine_name | String | `app` | If *js/combine* is set to true, then *js/combine_name* determines the name of combined file
+
 ## TODO
 - Slim module
 - README "advices" section
+- Change Sass config output so it can handle extension
