@@ -54,18 +54,18 @@ Everything in module's directory is just copied to output directory
 ### Sass
 *Sass*  module is made for preprocessing CSS code.
 Visit [SASS webpage](http://sass-lang.com/) for syntax details.
-By default module search for `main_file` (see [Configuration](#configuration) section),
+By default module search for `main_file` (see [Configuration/Sass](#sass-1) section),
 and compiles this file to *one* file in output directory.
 If you want to split your CSS into number of files, you should use `@import` directive.
 Imported files will be included by SASS in your output CSS file.
 
 ### Uglifier
 *Uglifier* module is made for minimizing JS code.
-The module search for all **.js** files in module's directory.
+The module searches for all **.js** files in module's directory.
 After collecting list of files, each of file is compressed using `uglifier` gem,
 and saved in output directory with the same name but with *.min.js* suffix.
 
-Uglifier module can be set in *combine* mode, which causes all files to be minified and combined into one file.
+Uglifier module can be set in *combine* mode (see [Configuration/Uglifier](#uglifier-1) section), which causes all files to be minified and combined into one file.
 However, you should be careful, because **file combining order is not guranteed**. If your code depends on including order it can cause problems.
 
 ## Configuration
