@@ -86,7 +86,7 @@ class Beavero
 
     @@config[:modules].each do |mod|
       # Join modules' names into paths beavero/module_name and require
-      require File.join( 'beavero', mod )
+      require File.join( 'beavero', mod + '.rb' )
 
       # Convert module name to constant objects (required to include module)
       @@modules << Object.const_get('Beavero' + mod.capitalize)
