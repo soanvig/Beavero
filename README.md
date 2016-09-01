@@ -1,5 +1,5 @@
 # Beavero
-[![Version v0.4.1](https://img.shields.io/badge/Version-v0.4.1-brightgreen.svg?style=flat)](https://github.com/soanvig/Beavero/releases)
+[![Version v0.5.0](https://img.shields.io/badge/Version-v0.5.0-brightgreen.svg?style=flat)](https://github.com/soanvig/Beavero/releases)
 
 Beavero is simple Ruby tasker programmed for webdevelopment.
 
@@ -21,6 +21,7 @@ So, it is: *convention over configuration* (however a lot of things [like paths]
   - [Vendor](#vendor)
   - [Sass](#sass)
   - [Uglifier](#uglifier)
+  - [Images](#images)
 - [Configuration](#configuration)
   - [Configuration table](#configuration-table)
     - [Basic](#basic)
@@ -28,8 +29,8 @@ So, it is: *convention over configuration* (however a lot of things [like paths]
     - [Vendor](#vendor-1)
     - [Sass](#sass-1)
     - [Uglifier](#uglifier-1)
+    - [Images](#images-1)
 - [Release plan](#release-plan)
-- [TODO](#todo)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -38,7 +39,8 @@ Here are listed prepocessors used by Beaver-o:
 - HTML: Slim (http://slim-lang.com)
 - CSS: SASS (http://sass-lang.com)
 - JS: Uglifier (https://github.com/lautis/uglifier [Uglifier Ruby version])
-- Images: [currently no processor chosen - propably TinyJPG/TinyPNG]
+- Images: (https://github.com/toy/image_optim)
+- Fonts: [currently no processor chosen]
 
 ## App tree
 The most important part here: the app tree.
@@ -47,8 +49,8 @@ and everything in *vendor* is treated as outside code, so copied without touchin
 
 - assets
   - scss
-    - _\*.scss
-    - \*.scss
+    - _\*.scss|sass
+    - \*.scss|sass
   - js
     - \*.js
   - slim
@@ -56,8 +58,7 @@ and everything in *vendor* is treated as outside code, so copied without touchin
   - fonts
     - \*.woff
   - images
-    - \*.jpg
-    - \*.png
+    - \*.jpg|png
 - vendor
   - plugin Name
     - \*.js
@@ -91,7 +92,14 @@ After collecting list of files, each of file is compressed using `uglifier` gem,
 and saved in output directory with the same name but with *.min.js* suffix.
 
 Uglifier module can be set in *combine* mode (see [Configuration/Uglifier](#uglifier-1) section), which causes all files to be minified and combined into one file.
-However, you should be careful, because **file combining order is not guranteed**. If your code depends on including order it can cause problems.
+However, you should be careful, because **file combining order is not guaranteed**. If your code depends on including order it can cause problems.
+
+### Images
+*Images* module is made for copying and compressing your graphic files.
+It supports JPEG, PNG and GIF files. SVG files are supported too, however they are not compressed.
+
+By default file compression is disabled (see [Configuration/Images](#images-1)), due to long execution time.
+It is recommended to enable compression just before push to server, and have it disabled during development process.
 
 ## Configuration
 Whole custom configuration is handled by one file: `beavero_config.json`, which is a JSON file.
@@ -158,8 +166,15 @@ sass/main_file | String | `main.scss` | Name of SASS file which will be looked f
 Key | Values | Default | Description
 --- | ------ | ------- | -----------
 paths/js | String | `./assets/js/` | Path of directory with JS files
-js/combine | Boolean ([true, false]) | `false` | Determines whether JS files should be compiled into one file or not
+js/combine | Boolean | `false` | Determines whether JS files should be compiled into one file or not
 js/combine_name | String | `app` | If *js/combine* is set to true, then *js/combine_name* determines the name of combined file
+
+#### Images
+
+Key | Values | Default | Description
+--- | ------ | ------- | -----------
+paths/images | String | `./assets/images/` | Path of directory with images
+images/compress | Boolean | `false` | Determines wheter module should compress files or not
 
 ## Release plan
 https://github.com/soanvig/Beavero/releases
@@ -174,7 +189,7 @@ Release plan below is updated systematically
 - [x] v0.3.0 Sass module
 - [x] v0.4.0 Uglifier module
 - [x] v0.4.1 Add logs to everything
-- [ ] v0.5.0 Images module
+- [x] v0.5.0 Images module
 - [ ] v0.6.0 Fonts module
 - [ ] v0.7.0 Slim module
 - [ ] v1.0.0 Beavero official release along with binary for command-line execution

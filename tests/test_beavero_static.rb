@@ -27,7 +27,7 @@ class TestBeaveroStatic < Test::Unit::TestCase
     Dir.chdir('../public')
     public_files = Dir.glob('./**/*')
 
-    assert_equal( static_files - public_files, [] )
+    assert_equal( [], static_files - public_files )
 
     Dir.chdir('..')
   end

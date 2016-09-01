@@ -21,8 +21,8 @@ class TestBeaveroSass < Test::Unit::TestCase
   end
 
   def test_build
-    output = File.read('public/main.css')
+    output = File.read('public/main.min.css')
     css = ".main{color:white}.import1{color:white}.import2{color:white}\n"
-    assert_equal( output, css )
+    assert_equal( css, output )
   end
 end

@@ -34,6 +34,6 @@ class TestBeaveroUglifier < Test::Unit::TestCase
       wd + "/./assets/js/folder/folderscript.js"
     ]
 
-    assert_equal(files, expected_files)
+    assert_equal(expected_files, files)
   end
 end

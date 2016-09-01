@@ -27,7 +27,7 @@ class TestBeaveroVendor < Test::Unit::TestCase
     Dir.chdir('../public')
     public_files = Dir.glob('./**/*')
 
-    assert_equal( vendor_files - public_files, [] )
+    assert_equal( [], vendor_files - public_files )
 
     Dir.chdir('..')
   end
