@@ -9,6 +9,8 @@ module BeaveroVendor
     source = File.join( @@config[:paths][:app], @@config[:paths][:vendor] )
     target = File.join( @@config[:paths][:app], @@config[:paths][:output] )
     FileUtils.copy_entry( source, target )
+
+    Beavero.log("Static builded sucessfully!", 'success')
   end
 
   private

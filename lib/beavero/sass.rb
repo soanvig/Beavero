@@ -11,15 +11,26 @@ module BeaveroSass
     options = {
       syntax: @@config[:sass][:syntax].to_sym,
       style: @@config[:sass][:style].to_sym,
-      load_paths: @@config[:sass][:load_paths]
+      load_paths: @@config[:sass][:load_paths],
+      quiet: true
     }
-    file = File.read( File.join( @@config[:paths][:app], @@config[:paths][:sass], 'main.scss' ) )
+    
+    main_file_path = File.join( @@config[:paths][:app], @@config[:paths][:sass], @@config[:sass][:main_file] )
+    if( File.exist? main_file_path )
+      file = File.read( main_file_path )
+    else
+      Beavero.log("SASS: Main SCSS file '" + @@config[:sass][:main_file].italic + "' doesn't exist in '" + @@config[:paths][:sass] + "' location. Module cannot continue.", 'error')
+    end
 
-    engine = Sass::Engine.new( file, options )
-    output = engine.render
+    if file
+      engine = Sass::Engine.new( file, options )
+      output = engine.render
 
-    target = File.join( @@config[:paths][:app], @@config[:paths][:output], @@config[:sass][:output] + '.css' )
-    File.write( target, output )
+      target = File.join( @@config[:paths][:app], @@config[:paths][:output], @@config[:sass][:output] + '.css' )
+      File.write( target, output )
+
+      Beavero.log("SASS builded successfully!", 'success')
+    end
   end
 
   private

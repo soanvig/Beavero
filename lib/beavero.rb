@@ -7,9 +7,14 @@ class Beavero
   def self.build
     load_logger
     load_configuration
+
+    log('Building started...', 'info')
+
     load_modules
     create_output
     build_modules
+
+    log('Building finished!', 'success')
   end
 
   # Log message (https://ruby-doc.org/stdlib-2.1.0/libdoc/logger/rdoc/Logger.html)
@@ -66,7 +71,7 @@ class Beavero
 
     @@config[:colors] = {}
     @@config[:colors][:success] = { color: :green }
-    @@config[:colors][:info]    = { color: :white }
+    @@config[:colors][:info]    = { color: :blue }
     @@config[:colors][:error]   = { color: :white, background: :red }
     @@config[:colors][:debug]   = { color: :white }
     @@config[:colors][:warn]    = { color: :yellow }
@@ -86,17 +91,29 @@ class Beavero
 
     @@config[:modules].each do |mod|
       # Join modules' names into paths beavero/module_name and require
-      require File.join( 'beavero', mod + '.rb' )
+      begin
+        require File.join( 'beavero', mod + '.rb' )
 
-      # Convert module name to constant objects (required to include module)
-      @@modules << Object.const_get('Beavero' + mod.capitalize)
+        # Convert module name to constant objects (required to include module)
+        @@modules << Object.const_get('Beavero' + mod.capitalize)
+
+        log("Module '" + mod.italic + "' loaded.", 'debug')
+      rescue LoadError
+        log("Requested module '" + mod.italic + "' cannot be required.", 'error')
+      end  
     end
+
+    log('All modules loaded.', 'debug')
   end
 
   # Remove old output and create new one
   def self.create_output
     FileUtils.rm_rf @@config[:paths][:output]
     FileUtils.mkdir_p @@config[:paths][:output]
+
+    if( File.exist? @@config[:paths][:output] )
+      log("Output folder created.", 'success')
+    end
   end
 
   def self.build_modules

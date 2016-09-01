@@ -16,6 +16,8 @@ module BeaveroUglifier
       content = File.read(file)
       output = Uglifier.compile(content)
 
+      Beavero.log("Uglifier: '" + File.basename(file).italic + "' uglified.", 'info')
+
       full_output[filename] = output
     end
 
@@ -28,6 +30,12 @@ module BeaveroUglifier
 
       File.write( target, output, { mode: 'a' } )
     end
+
+    if @@config[:js][:combine]
+      Beavero.log("Uglifier: All files combined.", 'info')
+    end
+
+    Beavero.log("Uglifier builded successfully!", 'success')
   end
 
   private

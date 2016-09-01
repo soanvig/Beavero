@@ -7,7 +7,7 @@ class TestBeaveroUglifier < Test::Unit::TestCase
     Dir.chdir('tests/test_enviroment')
 
     # Clean test enviroment
-    FileUtils.rm_rf( Dir.glob( './*' ) )
+    FileUtils.rm_rf( Dir.glob( './**/*' ) )
 
     # Create test enviroment
     FileUtils.copy_entry('../test_enviroment_configuration', '.')
@@ -21,7 +21,8 @@ class TestBeaveroUglifier < Test::Unit::TestCase
   end
 
   def test_build
-
+    # Uglifier tests don't work due to TheRubyRacer problem with redefining functions.
+    # Uglifier therefore is tested on seperated playground
   end
 
   def test_search_files
