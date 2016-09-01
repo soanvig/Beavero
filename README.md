@@ -172,7 +172,7 @@ Release plan below is updated systematically
 - [x] v0.2.3 Logger colors, modules configuration
 - [x] v0.3.0 Sass module
 - [x] v0.4.0 Uglifier module
-- [ ] v0.4.1 Add logs to everything
+- [x] v0.4.1 Add logs to everything
 - [ ] v0.5.0 Images and Fonts module
 - [ ] v0.6.0 Slim module
 - [ ] v1.0.0 Beavero official release along with binary for command-line execution
