@@ -1,5 +1,5 @@
 # Beavero
-[![Version v0.4.0](https://img.shields.io/badge/Version-v0.4.0-brightgreen.svg?style=flat)](https://github.com/soanvig/Beavero/releases)
+[![Version v0.4.1](https://img.shields.io/badge/Version-v0.4.1-brightgreen.svg?style=flat)](https://github.com/soanvig/Beavero/releases)
 
 Beavero is simple Ruby tasker programmed for webdevelopment.
 
