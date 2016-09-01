@@ -26,7 +26,7 @@ module BeaveroSass
       engine = Sass::Engine.new( file, options )
       output = engine.render
 
-      target = File.join( @@config[:paths][:app], @@config[:paths][:output], @@config[:sass][:output] + '.css' )
+      target = File.join( @@config[:paths][:app], @@config[:paths][:output], @@config[:sass][:output] + @@config[:sass][:output_ext] )
       File.write( target, output )
 
       Beavero.log("SASS builded successfully!", 'success')
@@ -47,6 +47,7 @@ module BeaveroSass
     @@config[:sass][:syntax] = @@config[:sass][:main_file].split('.').last  unless @@config[:sass][:syntax]
     # Output filename by default is defined by :main_file name
     @@config[:sass][:output] = @@config[:sass][:main_file].split('.').first unless @@config[:sass][:output]
+    @@config[:sass][:output_ext] = '.min.css'                               unless @@config[:sass][:output_ext]
     @@config[:sass][:load_paths] = [ File.join( @@config[:paths][:app], @@config[:paths][:sass] ) ]
   end
 end

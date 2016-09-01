@@ -150,6 +150,7 @@ paths/sass | String | `./assets/scss/` | Path of directory with SASS files
 sass/syntax | ["scss", "sass"] | Determined by `main_file` extension | Syntax used by SASS to compile files. See [SASS Indented Synax](http://sass-lang.com/documentation/file.INDENTED_SYNTAX.html) (*sass* syntax) for more details.
 sass/style | ["nested", "expanded", "compact", "compressed"] | `compressed` | SASS output style. See more on [SASS documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style)
 sass/output | String | Determined by `main_file` filename | Name of output CSS file
+sass/output_ext | String | `.min.css` | Extension of output file
 sass/main_file | String | `main.scss` | Name of SASS file which will be looked for in module's directory by Beavero. This is the starting point for all CSS/SASS directives
 
 #### Uglifier
@@ -173,11 +174,7 @@ Release plan below is updated systematically
 - [x] v0.3.0 Sass module
 - [x] v0.4.0 Uglifier module
 - [x] v0.4.1 Add logs to everything
-- [ ] v0.5.0 Images and Fonts module
-- [ ] v0.6.0 Slim module
+- [ ] v0.5.0 Images module
+- [ ] v0.6.0 Fonts module
+- [ ] v0.7.0 Slim module
 - [ ] v1.0.0 Beavero official release along with binary for command-line execution
-
-## TODO
-- Slim module
-- README "advices" section
-- Change Sass config output so it can handle extension
