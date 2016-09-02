@@ -1,5 +1,6 @@
 module BeaveroSlim
   require 'slim'
+  require 'slim/include'
 
   def self.included(base)
     # Slim included
@@ -9,7 +10,7 @@ module BeaveroSlim
     check_configuration(config)
     
     layouts = search_layouts
-
+    files = search_files
   end
 
   private
@@ -22,7 +23,7 @@ module BeaveroSlim
     @@config[:paths][:slim_layouts] = './assets/slim/layouts'     unless @@config[:paths][:slim_layouts]
     @@config[:paths][:slim_includes] = ['./assets/slim/partials'] unless @@config[:paths][:slim_includes]
 
-    @@config[:slim] = {}                                           unless @@config[:slim]
+    @@config[:slim] = {}                                          unless @@config[:slim]
 
     # Slim
     Slim::Engine.options[:include_dirs] = @@config[:paths][:slim_includes]
@@ -45,8 +46,29 @@ module BeaveroSlim
     layouts
   end
 
+  def search_files
+    # Get all slim files
+    files = Dir.glob( File.join( 
+      @@config[:paths][:app],
+      @@config[:paths][:slim],
+      '**',
+      '*.slim'
+    ) )
+
+    # Exclude files contained in includes and layouts directory
+    files = files.reject do |path|
+      dir = File.dirname(path)
+      layouts_path = File.join( @@config[:paths][:app], @@config[:paths][:slim_layouts] )
+      includes_path = @@config[:paths][:slim_includes].map { |x| File.join( @@config[:paths][:app], x ) }
+
+      (layouts_path + includes_path).include? dir
+    end
+  end
+
   # Enviroment class is required to provide support for content_for (and yielding specific block of codes)
   class Enviroment 
+    attr_reader :layout
+
     def initialize
       @vars = {}
     end
@@ -60,6 +82,10 @@ module BeaveroSlim
 
     def [](key)
       @vars[key]
+    end
+
+    def layout_name(name)
+      @layout = name
     end
   end
 end
