@@ -1,6 +1,5 @@
 module BeaveroSlim
   require 'slim'
-  require 'slim/include'
 
   def self.included(base)
     # Slim included
@@ -42,11 +41,11 @@ module BeaveroSlim
     @@config = config
 
     # Defaults
-    @@config[:paths][:slim] = './assets/slim/'                    unless @@config[:paths][:slim]
-    @@config[:paths][:slim_layouts] = './assets/slim/layouts'     unless @@config[:paths][:slim_layouts]
-    @@config[:paths][:slim_includes] = ['./assets/slim/partials'] unless @@config[:paths][:slim_includes]
+    @@config[:paths][:slim] = './assets/slim/'                      unless @@config[:paths][:slim]
+    @@config[:paths][:slim_layouts] = './assets/slim/layouts/'      unless @@config[:paths][:slim_layouts]
+    @@config[:paths][:slim_includes] = ['./assets/slim/partials/']  unless @@config[:paths][:slim_includes]
 
-    @@config[:slim] = {}                                          unless @@config[:slim]
+    @@config[:slim] = {}                                            unless @@config[:slim]
 
     # Slim
     Slim::Engine.options[:include_dirs] = @@config[:paths][:slim_includes]

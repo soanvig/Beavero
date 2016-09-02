@@ -1,5 +1,5 @@
 # Beavero
-[![Version v0.6.0](https://img.shields.io/badge/Version-v0.6.0-brightgreen.svg?style=flat)](https://github.com/soanvig/Beavero/releases)
+[![Version v0.7.0](https://img.shields.io/badge/Version-v0.7.0-brightgreen.svg?style=flat)](https://github.com/soanvig/Beavero/releases)
 
 Beavero is simple Ruby tasker programmed for webdevelopment.
 
@@ -22,6 +22,7 @@ Beavero supports:
 **Table of Contents**
 
 - [Preprocessors](#preprocessors)
+- [Usage](#usage)
 - [App tree](#app-tree)
 - [Modules](#modules)
   - [Static](#static)
@@ -29,6 +30,8 @@ Beavero supports:
   - [Sass](#sass)
   - [Uglifier](#uglifier)
   - [Images](#images)
+  - [Fonts](#fonts)
+  - [Slim](#slim)
 - [Configuration](#configuration)
   - [Configuration table](#configuration-table)
     - [Basic](#basic)
@@ -37,6 +40,8 @@ Beavero supports:
     - [Sass](#sass-1)
     - [Uglifier](#uglifier-1)
     - [Images](#images-1)
+    - [Fonts](#fonts-1)
+    - [Slim](#slim-1)
 - [Release plan](#release-plan)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -48,6 +53,13 @@ Here are listed prepocessors used by Beaver-o:
 - JS: Uglifier (https://github.com/lautis/uglifier [Uglifier Ruby version])
 - Images: (https://github.com/toy/image_optim)
 - Fonts: [currently no processor chosen]
+
+## Usage
+Wanna know how to use Beavero, huh?
+
+Simply create [configuration file](#configuration), and run Ruby script: `Beavero.build`. Sorry, I couldn't make it simplier :(
+
+Example usage of modules can be found in `tests/test_enviroment_configuration` directory, beacause this is a directory used for running tests.
 
 ## App tree
 The most important part here: the app tree.
@@ -87,14 +99,14 @@ Everything in module's directory is just copied to output directory
 ### Sass
 *Sass*  module is made for preprocessing CSS code.
 Visit [SASS webpage](http://sass-lang.com/) for syntax details.
-By default module search for `main_file` (see [Configuration/Sass](#sass-1) section),
+By default module searches for `main_file` (see [Configuration/Sass](#sass-1) section),
 and compiles this file to *one* file in output directory.
-If you want to split your CSS into number of files, you should use `@import` directive.
+If you want to split your CSS (SASS) into number of files, you should use SASS `@import` directive.
 Imported files will be included by SASS in your output CSS file.
 
 ### Uglifier
 *Uglifier* module is made for minimizing JS code.
-The module searches for all **.js** files in module's directory.
+The module searches for all `.js` files in module's directory.
 After collecting list of files, each of file is compressed using `uglifier` gem,
 and saved in output directory with the same name but with *.min.js* suffix.
 
@@ -110,9 +122,20 @@ It is recommended to enable compression just before push to server, and have it 
 
 ### Fonts
 *Fonts* module, for now, is made only for copying files to appropriate folder.
-In future following features will be added:
+**In future** following features will be added:
+
 * Converting fonts to number of formats
 * Generating @font-face rules and including it in SASS
+
+### Slim
+*Slim* module is made for compiling Slim files.
+The Slim itself lacks of few (important in my opinion) features:
+
+* *layouts* - compiling content files into layout files, with layout name defined directly in content file (Jade/Pug has *extends*)
+* *content_for* - in layouts mechanism `content_for` placed inside content file should enable creating blocks of parsed Slim code for layouts. I.e. it can be a title for <title> tag defined in layout - this way every subpage using the same layout can have different page titles!
+* *include* - `include` allows to include (and eventually parse) other files. I.e. two of your content files shares the same code - it is the best practice to exclude this code to seperate file, and include the file in both content files!
+
+*Slim* module contains every one of foregoing features.
 
 ## Configuration
 Whole custom configuration is handled by one file: `beavero_config.json`, which is a JSON file.
@@ -196,6 +219,14 @@ Key | Values | Default | Description
 --- | ------ | ------- | -----------
 paths/fonts | String | `./assets/fonts/` | Path of directory with fonts
 
+#### Slim
+
+Key | Values | Default | Description
+--- | ------ | ------- | -----------
+paths/slim | String | `./assets/slim/` | Path of directory with all slim files
+paths/slim_layouts | String | `./assets/slim/layouts/` | Path of directory with layouts files
+paths/slim_includes | String | `./assets/slim/partials/` | Path of directory with partials files (directory in which Slim module will search for files called by `include`)
+
 ## Release plan
 https://github.com/soanvig/Beavero/releases
 
@@ -211,5 +242,7 @@ Release plan below is updated systematically
 - [x] v0.4.1 Add logs to everything
 - [x] v0.5.0 Images module
 - [x] v0.6.0 Fonts module
-- [ ] v0.7.0 Slim module
+- [x] v0.7.0 Slim module
+- [ ] v0.7.1 Generating font face rules
+- [ ] v0.7.2 Converting fonts
 - [ ] v1.0.0 Beavero official release along with binary for command-line execution
