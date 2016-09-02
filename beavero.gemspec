@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name        = 'Beavero'
+  s.name        = 'beavero'
   s.version     = '0.6.0'
   s.summary     = 'Beavero - Ruby tasker programmed for webdevelopment'
   s.description = 'Beavero - Ruby tasker programmed for webdevelopment. This is pre-release version!

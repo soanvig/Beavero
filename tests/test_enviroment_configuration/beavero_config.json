@@ -5,7 +5,8 @@
     "sass",
     "uglifier",
     "images",
-    "fonts"
+    "fonts",
+    "slim"
   ],
   "logger": {
   	"level": "debug"
