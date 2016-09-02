@@ -13,7 +13,7 @@ module BeaveroFonts
       '**', 
       '*' + '.{' + @@config[:fonts][:ext].join(',') + '}' 
     ) )
-    files.reject do |path|
+    files = files.reject do |path|
       File.directory? path
     end
 
