@@ -1,4 +1,6 @@
 module BeaveroSlim
+  require 'slim'
+  
   def self.included(base)
     # Slim included
   end
@@ -18,5 +20,23 @@ module BeaveroSlim
     @@config[:paths][:slim_layouts] = './assets/slim/layouts' unless @@config[:paths][:slim_layouts]
 
     @@config[:slim] = {}                                       unless @@config[:slim]
+  end
+
+  # Enviroment class is required to provide support for content_for (and yielding specific block of codes)
+  class Enviroment 
+    def initialize
+      @vars = {}
+    end
+
+    def content_for(key)  
+      @vars[key] = yield
+
+      # Return nil so Slim doesn't render block content once more
+      return nil
+    end
+
+    def [](key)
+      @vars[key]
+    end
   end
 end
