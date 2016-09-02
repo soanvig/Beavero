@@ -4,6 +4,10 @@
     "vendor",
     "sass",
     "uglifier",
-    "images"
-  ]
+    "images",
+    "fonts"
+  ],
+  "logger": {
+  	"level": "debug"
+  }
 }

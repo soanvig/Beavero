@@ -1,7 +1,7 @@
 require 'test/unit'
 require 'beavero.rb'
 
-class TestBeaveroImages < Test::Unit::TestCase
+class TestBeaveroFonts < Test::Unit::TestCase
   def setup
     # Switch to test enviroment
     Dir.chdir('tests/test_enviroment')
@@ -21,15 +21,15 @@ class TestBeaveroImages < Test::Unit::TestCase
   end
 
   def test_build
-    Dir.chdir('assets/images')
-    images_files = Dir.glob('./**/*').reject do |path|
+    Dir.chdir('assets/fonts')
+    fonts_files = Dir.glob('./**/*').reject do |path|
       File.directory? path
     end
 
     Dir.chdir('../../public')
     public_files = Dir.glob('./**/*')
 
-    assert_equal( [], images_files - public_files )
+    assert_equal( [], fonts_files - public_files )
 
     Dir.chdir('..')
   end

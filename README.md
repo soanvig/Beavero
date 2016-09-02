@@ -1,5 +1,5 @@
 # Beavero
-[![Version v0.5.0](https://img.shields.io/badge/Version-v0.5.0-brightgreen.svg?style=flat)](https://github.com/soanvig/Beavero/releases)
+[![Version v0.6.0](https://img.shields.io/badge/Version-v0.6.0-brightgreen.svg?style=flat)](https://github.com/soanvig/Beavero/releases)
 
 Beavero is simple Ruby tasker programmed for webdevelopment.
 
@@ -7,6 +7,13 @@ It is based on idea, that - practically - every file in app has its unique name.
 Therefore whole app can be compiled to one, flat folder.
 Moreover it enforces app structure, preprocessors (for now), and file types.
 So, it is: *convention over configuration* (however a lot of things [like paths], can be configured via [config file](#configuration)).
+
+Beavero supports:
+* HTML (Slim)
+* CSS (SASS)
+* JS (uglify)
+* Images (compressing)
+* Fonts (converting formats, automated generating @font-face rules)
 
 **This is pre-release version** (more information at https://github.com/soanvig/Beavero/releases).
 
@@ -101,6 +108,12 @@ It supports JPEG, PNG and GIF files. SVG files are supported too, however they a
 By default file compression is disabled (see [Configuration/Images](#images-1)), due to long execution time.
 It is recommended to enable compression just before push to server, and have it disabled during development process.
 
+### Fonts
+*Fonts* module, for now, is made only for copying files to appropriate folder.
+In future following features will be added:
+* Converting fonts to number of formats
+* Generating @font-face rules and including it in SASS
+
 ## Configuration
 Whole custom configuration is handled by one file: `beavero_config.json`, which is a JSON file.
 
@@ -137,6 +150,7 @@ Key | Values | Default | Description
 modules | ["static", "vendor", "sass", "uglifier"] | None | Modules which should be used by Beavero
 paths/app | String | Beavero's script execution path | Beavero's working directory (system absolute path)
 paths/output | String | `./public/` | Output of Beavero's building
+logger/level | String | `info` | Level of Beavero logger. See [Rubydoc/Logger](https://ruby-doc.org/stdlib-2.1.0/libdoc/logger/rdoc/Logger.html) page for more information about levels
 
 #### Static
 
@@ -176,6 +190,12 @@ Key | Values | Default | Description
 paths/images | String | `./assets/images/` | Path of directory with images
 images/compress | Boolean | `false` | Determines wheter module should compress files or not
 
+#### Fonts
+
+Key | Values | Default | Description
+--- | ------ | ------- | -----------
+paths/fonts | String | `./assets/fonts/` | Path of directory with fonts
+
 ## Release plan
 https://github.com/soanvig/Beavero/releases
 
@@ -190,6 +210,6 @@ Release plan below is updated systematically
 - [x] v0.4.0 Uglifier module
 - [x] v0.4.1 Add logs to everything
 - [x] v0.5.0 Images module
-- [ ] v0.6.0 Fonts module
+- [x] v0.6.0 Fonts module
 - [ ] v0.7.0 Slim module
 - [ ] v1.0.0 Beavero official release along with binary for command-line execution

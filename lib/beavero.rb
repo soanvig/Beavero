@@ -5,8 +5,8 @@ require 'fileutils'
 
 class Beavero
   def self.build
-    load_logger
     load_configuration
+    load_logger
 
     log('Building started...', 'info')
 
@@ -46,7 +46,15 @@ class Beavero
   def self.load_logger
     unless defined? @@logger
       @@logger = Logger.new(STDOUT)
-      @@logger.level = Logger::INFO
+      @@logger.level = case @@config[:logger][:level]
+        when 'fatal' then Logger::FATAL
+        when 'error' then Logger::ERROR
+        when 'debug' then Logger::DEBUG
+        when 'info'  then Logger::INFO
+        when 'warn'  then Logger::WARN
+        else Logger::INFO
+      end
+
       @@logger.formatter = proc do |severity, datetime, progname, msg|
         "#{msg}\n"
       end
@@ -68,6 +76,8 @@ class Beavero
     @@config[:logger][:types]   = ['error', 'warn', 'info', 'debug', 'success']
     # Custom types will be converted into 'info' type for logger
     @@config[:logger][:custom_types] = ['success']
+    # Allowed levels: 'error', 'warn', 'info', 'debug', 'fatal'
+    @@config[:logger][:level] = 'info'
 
     @@config[:colors] = {}
     @@config[:colors][:success] = { color: :green }
