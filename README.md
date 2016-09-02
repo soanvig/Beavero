@@ -138,7 +138,7 @@ It is recommended to enable compression just before push to server, and have it 
 The Slim itself lacks of few (important in my opinion) features:
 
 * *layouts* - compiling content files into layout files, with layout name defined directly in content file (Jade/Pug has *extends*)
-* *content_for* - in layouts mechanism `content_for` placed inside content file should enable creating blocks of parsed Slim code for layouts. I.e. it can be a title for <title> tag defined in layout - this way every subpage using the same layout can have different page titles!
+* *content_for* - in layouts mechanism `content_for` placed inside content file should enable creating blocks of parsed Slim code for layouts. I.e. it can be a title for `<title>` tag defined in layout - this way every subpage using the same layout can have different page titles!
 * *include* - `include` allows to include (and eventually parse) other files. I.e. two of your content files shares the same code - it is the best practice to exclude this code to seperate file, and include the file in both content files!
 
 *Slim* module contains every one of foregoing features.
