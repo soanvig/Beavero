@@ -22,6 +22,7 @@ Beavero supports:
 **Table of Contents**
 
 - [Preprocessors](#preprocessors)
+- [Installation](#installation)
 - [Usage](#usage)
 - [App tree](#app-tree)
 - [Modules](#modules)
@@ -53,6 +54,11 @@ Here are listed prepocessors used by Beaver-o:
 - JS: Uglifier (https://github.com/lautis/uglifier [Uglifier Ruby version])
 - Images: (https://github.com/toy/image_optim)
 - Fonts: [currently no processor chosen]
+
+## Installation
+Beavero is hosted by RubyGems, so just run:
+`gem install beavero`
+and you can start *beavering*.
 
 ## Usage
 Wanna know how to use Beavero, huh?
