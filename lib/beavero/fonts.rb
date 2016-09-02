@@ -7,7 +7,13 @@ module BeaveroFonts
     check_configuration(config)
     
     # List files without directories
-    files = Dir.glob( File.join( @@config[:paths][:fonts], '**', '*' + '.{' + @@config[:fonts][:ext].join(',') + '}' ) ).reject do |path|
+    files = Dir.glob( File.join( 
+      @@config[:paths][:app], 
+      @@config[:paths][:fonts], 
+      '**', 
+      '*' + '.{' + @@config[:fonts][:ext].join(',') + '}' 
+    ) )
+    files.reject do |path|
       File.directory? path
     end
 
