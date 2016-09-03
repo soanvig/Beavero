@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   More information on https://github.com/soanvig/beavero'
   s.author      = 'Schizohatter'
   s.email       = 'soanvig@gmail.com'
-  s.files       = ['lib/beavero.rb', 'lib/beavero/static.rb', 'lib/beavero/vendor.rb', 'lib/beavero/sass.rb', 'lib/beavero/uglifier.rb', 'lib/beavero/images.rb', 'lib/beavero/slim.rb']
+  s.files       = ['lib/beavero.rb', 'lib/beavero/static.rb', 'lib/beavero/vendor.rb', 'lib/beavero/sass.rb', 'lib/beavero/uglifier.rb', 'lib/beavero/images.rb', 'lib/beavero/slim.rb', 'lib/beavero/fonts.rb']
   s.homepage    = 'https://github.com/soanvig/beavero'
   s.license     = 'MIT'
   s.add_runtime_dependency 'logger', '>= 1.2.8'
