@@ -86,7 +86,9 @@ module BeaveroSlim
       layouts_path = File.join( @@config[:paths][:app], @@config[:paths][:slim_layouts] )
       includes_path = @@config[:paths][:slim_includes].map { |x| File.join( @@config[:paths][:app], x ) }
 
-      ([layouts_path] + includes_path).include? dir
+      # We need to search and compare each path (they have to be exact)
+      # if at least one matching path found - exclude that file
+      ([layouts_path] + includes_path).find { |el| File.realdirpath(el) === File.realdirpath(dir) }
     end
 
     Beavero.log("Slim: Files found to build: '[" + files.join(',').italic + "]'", 'debug')
