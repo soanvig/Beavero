@@ -25,7 +25,7 @@ module BeaveroImages
       image_optim.optimize_images(images) do |unoptimized, optimized|
         name = File.basename(unoptimized)
         image = optimized ? optimized : unoptimized
-        FileUtils.mv( image, File.join( target, name) )
+        FileUtils.cp( image, File.join( target, name) )
 
         if optimized
           Beavero.log("Images: '" + name.italic + "' compressed.", 'info')
@@ -36,7 +36,7 @@ module BeaveroImages
     else
       images.each do |image|
         name = File.basename(image)
-        FileUtils.mv( image, File.join( target, name) )
+        FileUtils.cp( image, File.join( target, name) )
         Beavero.log("Images: '" + name.italic + "' moved (not compressed).", 'info')
       end
     end
