@@ -25,9 +25,13 @@ class TestBeaveroImages < Test::Unit::TestCase
     images_files = Dir.glob('./**/*').reject do |path|
       File.directory? path
     end
+    images_files.map! { |image| File.basename(image) }
 
     Dir.chdir('../../public')
     public_files = Dir.glob('./**/*')
+    public_files.map! { |file| File.basename(file) }
+
+    puts public_files
 
     assert_equal( [], images_files - public_files )
 
