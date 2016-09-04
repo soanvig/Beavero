@@ -46,9 +46,6 @@ module BeaveroSlim
     @@config[:paths][:slim_includes] = ['./assets/slim/partials/']  unless @@config[:paths][:slim_includes]
 
     @@config[:slim] = {}                                            unless @@config[:slim]
-
-    # Slim
-    Slim::Engine.options[:include_dirs] = @@config[:paths][:slim_includes]
   end
 
   def self.search_layouts
