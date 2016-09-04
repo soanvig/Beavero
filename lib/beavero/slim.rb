@@ -119,23 +119,22 @@ module BeaveroSlim
 
     def include(name)
       # Search recursively for file in include path
-      file = Dir.glob( File.join(
+      filepath = File.join(
           @config[:paths][:app],
           @config[:paths][:slim_includes],
-          '**',
           name
-        ) )
+        )
 
-      if file
+      if File.exist? filepath
         ext = File.extname(name)
 
         # If file has .slim extension it needs to be parsed, otherwised not
         if ext == '.slim'
-          Beavero.log("Slim: '" + file.first.italic + "' included and rendered.", 'debug')
-          return Slim::Template.new { File.read(file.first) }.render
+          Beavero.log("Slim: '" + name.italic + "' included and rendered.", 'debug')
+          return Slim::Template.new { File.read(filepath) }.render
         else
-          Beavero.log("Slim: '" + file.first.italic + "' included.", 'debug')
-          return File.read(file.first)
+          Beavero.log("Slim: '" + name.italic + "' included.", 'debug')
+          return File.read(filepath)
         end
       else
         Beavero.log("Slim: Couldn't include '" + name.italic + "' file.", 'warn')
