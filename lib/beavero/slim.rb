@@ -43,7 +43,7 @@ module BeaveroSlim
     # Defaults
     @@config[:paths][:slim] = './assets/slim/'                      unless @@config[:paths][:slim]
     @@config[:paths][:slim_layouts] = './assets/slim/layouts/'      unless @@config[:paths][:slim_layouts]
-    @@config[:paths][:slim_includes] = ['./assets/slim/partials/']  unless @@config[:paths][:slim_includes]
+    @@config[:paths][:slim_includes] = './assets/slim/partials/'    unless @@config[:paths][:slim_includes]
 
     @@config[:slim] = {}                                            unless @@config[:slim]
   end
@@ -81,11 +81,11 @@ module BeaveroSlim
     files = files.reject do |path|
       dir = File.dirname(path)
       layouts_path = File.join( @@config[:paths][:app], @@config[:paths][:slim_layouts] )
-      includes_path = @@config[:paths][:slim_includes].map { |x| File.join( @@config[:paths][:app], x ) }
+      includes_path = File.join( @@config[:paths][:app], @@config[:paths][:slim_includes] ) 
 
       # We need to search and compare each path (they have to be exact)
       # if at least one matching path found - exclude that file
-      ([layouts_path] + includes_path).find { |el| File.realdirpath(el) === File.realdirpath(dir) }
+      ([layouts_path] + [includes_path]).find { |el| File.realdirpath(el) === File.realdirpath(dir) }
     end
 
     Beavero.log("Slim: Files found to build: '[" + files.join(',').italic + "]'", 'debug')
@@ -118,16 +118,13 @@ module BeaveroSlim
     end
 
     def include(name)
-      # Search recursively for file in each include path
-      file = @config[:paths][:slim_includes].map do |path|
-        Dir.glob( File.join(
+      # Search recursively for file in include path
+      file = Dir.glob( File.join(
           @config[:paths][:app],
-          path,
+          @config[:paths][:slim_includes],
           '**',
           name
         ) )
-      end
-      file.flatten!
 
       if file
         ext = File.extname(name)
