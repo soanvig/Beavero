@@ -20,7 +20,7 @@ module BeaveroFonts
     # Copy everything
     files.each do |file|
       name = File.basename(file)
-      FileUtils.mv( file, File.join( @@config[:paths][:output], name) )
+      FileUtils.cp( file, File.join( @@config[:paths][:output], name) )
       Beavero.log("Fonts: '" + name.italic + "' moved.", 'info')
     end
 
