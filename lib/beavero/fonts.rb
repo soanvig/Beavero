@@ -36,6 +36,6 @@ module BeaveroFonts
     @@config[:paths][:fonts] = './assets/fonts/' unless @@config[:paths][:fonts]
 
     @@config[:fonts] = {}                         unless @@config[:fonts]
-    @@config[:fonts][:ext] = ['ttf', 'TTF', 'eot', 'eot', 'woff', 'WOFF', 'woff2', 'WOFF2', 'svg', 'SVG', 'ttc', 'TTC']
+    @@config[:fonts][:ext] = ['ttf', 'TTF', 'eot', 'eot', 'woff', 'WOFF', 'woff2', 'WOFF2', 'svg', 'SVG', 'ttc', 'TTC', 'otf', 'OTF']
   end
 end
