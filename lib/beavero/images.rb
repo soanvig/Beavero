@@ -1,6 +1,5 @@
 module BeaveroImages
-  require 'image_optim'
-  require 'image_optim_pack'
+  require 'mini_magick'
 
   def self.included(base)
     # Images included
@@ -8,37 +7,20 @@ module BeaveroImages
 
   def self.build(config)
     check_configuration(config)
-    image_optim = ImageOptim.new({ 
-      pngout: false, 
-      svgo: false, 
-      cache_dir: '/tmp/',
-      pngquant: false,
-      pngcrush: false,
-      optipng: false
-    })
     
     images = search_files
     target = File.join( @@config[:paths][:app], @@config[:paths][:output] )
-    output = []
-   
-    if @@config[:images][:compress]
-      image_optim.optimize_images(images) do |unoptimized, optimized|
-        name = File.basename(unoptimized)
-        image = optimized ? optimized : unoptimized
-        FileUtils.cp( image, File.join( target, name) )
+    
+    images.each do |image|
+      name = File.basename(image)
 
-        if optimized
-          Beavero.log("Images: '" + name.italic + "' compressed.", 'info')
-        else
-          Beavero.log("Images: '" + name.italic + "' moved (not compressed).", 'info')
-        end
+      # If thumbnails are enabled and file is contained within thumbnail directory
+      if @@config[:images][:thumbnails] && is_thumbnail?(image)
+        generate_thumbnail(image, name)
       end
-    else
-      images.each do |image|
-        name = File.basename(image)
-        FileUtils.cp( image, File.join( target, name) )
-        Beavero.log("Images: '" + name.italic + "' moved (not compressed).", 'info')
-      end
+
+      FileUtils.cp( image, File.join( target, name ) )
+      Beavero.log("Images: '" + name.italic + "' moved (not compressed).", 'info')
     end
 
     Beavero.log("Images builded sucessfully!", 'success')
@@ -52,14 +34,36 @@ module BeaveroImages
     # Defaults
     @@config[:paths][:images] = './assets/images/' unless @@config[:paths][:images]
 
-    @@config[:images] = {}                         unless @@config[:images]
+    @@config[:images] = {}                            unless @@config[:images]
     @@config[:images][:ext] = ['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'svg', 'SVG', 'gif', 'GIF']
-    @@config[:images][:compress] = false           unless @@config[:images][:compress]
+    @@config[:images][:compress] = false              unless @@config[:images][:compress]
+    @@config[:images][:thumbnails] = false            unless @@config[:images][:thumbnails]
+
+    @@config[:images][:thumbnails_dir] = 'thumbs/'    unless @@config[:images][:thumbnails_dir]
+    @@config[:images][:thumbnails_size] = '150x150'   unless @@config[:images][:thumbnails_size]
   end
 
   def self.search_files
     images_path = File.join( @@config[:paths][:app], @@config[:paths][:images] )
     images = Dir.glob( File.join( images_path, '**', '*' ) + '.{' + @@config[:images][:ext].join(',') + '}' )
     images
+  end
+
+  def self.is_thumbnail?(path)
+    fullpath = File.join( @@config[:paths][:app], @@config[:paths][:images], @@config[:images][:thumbnails_dir] )
+    File.realdirpath(path).include? ( File.realdirpath(fullpath) )
+  end
+
+  def self.generate_thumbnail(path, filename)
+    image = MiniMagick::Image.open(path)
+    image.resize @@config[:images][:thumbnails_size]
+
+    name = File.basename(filename, '.*')
+    ext = File.extname(filename)
+    save_name = name + '.thumb' + ext
+
+    image.write File.join( @@config[:paths][:app], @@config[:paths][:output], save_name )
+
+    Beavero.log("Images: Thumbnails '" + save_name.italic + "' generated.", 'info')
   end
 end

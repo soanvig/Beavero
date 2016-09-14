@@ -1,5 +1,5 @@
 # Beavero
-[![Version v0.7.0](https://img.shields.io/badge/Version-v0.7.0-brightgreen.svg?style=flat)](https://github.com/soanvig/Beavero/releases)
+[![Version v0.8.0](https://img.shields.io/badge/Version-v0.8.0-brightgreen.svg?style=flat)](https://github.com/soanvig/Beavero/releases)
 
 Beavero is simple Ruby tasker programmed for webdevelopment.
 
@@ -12,53 +12,38 @@ Beavero supports:
 * HTML (Slim)
 * CSS (SASS)
 * JS (uglify)
-* Images (compressing)
+* Images (compressing and creating thumbnails)
 * Fonts (converting formats, automated generating @font-face rules)
 
 **This is pre-release version** (more information at https://github.com/soanvig/Beavero/releases).
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
+<!-- MarkdownTOC -->
 
 - [Preprocessors](#preprocessors)
 - [Installation](#installation)
 - [Usage](#usage)
 - [App tree](#app-tree)
 - [Modules](#modules)
-  - [Static](#static)
-  - [Vendor](#vendor)
-  - [Sass](#sass)
-  - [Uglifier](#uglifier)
-  - [Images](#images)
-  - [Fonts](#fonts)
-  - [Slim](#slim)
 - [Configuration](#configuration)
-  - [Configuration table](#configuration-table)
-    - [Basic](#basic)
-    - [Static](#static-1)
-    - [Vendor](#vendor-1)
-    - [Sass](#sass-1)
-    - [Uglifier](#uglifier-1)
-    - [Images](#images-1)
-    - [Fonts](#fonts-1)
-    - [Slim](#slim-1)
 - [Release plan](#release-plan)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<!-- /MarkdownTOC -->
 
 ## Preprocessors
 Here are listed prepocessors used by Beaver-o:
 - HTML: Slim (http://slim-lang.com)
 - CSS: SASS (http://sass-lang.com)
 - JS: Uglifier (https://github.com/lautis/uglifier [Uglifier Ruby version])
-- Images: (https://github.com/toy/image_optim)
+- Images: Image Magick (http://www.imagemagick.org/script/index.php)
 - Fonts: [currently no processor chosen]
 
 ## Installation
 Beavero is hosted by RubyGems, so just run:
 `gem install beavero`
 and you can start *beavering*.
+
+Image module requires [Image Magick](http://www.imagemagick.org/script/index.php) for generating thumbnails. Go ahead and check its website for installation instructions.
 
 ## Usage
 Wanna know how to use Beavero, huh?
@@ -83,7 +68,7 @@ and everything in *vendor* is treated as outside code, so copied without touchin
   - fonts
     - \*.woff
   - images
-    - \*.jpg|png
+    - \*.jpg|png|gif|svg
 - vendor
   - plugin Name
     - \*.js
@@ -121,10 +106,12 @@ However, you should be careful, because **file combining order is not guaranteed
 
 ### Images
 *Images* module is made for copying and compressing your graphic files.
-It supports JPEG, PNG and GIF files. SVG files are supported too, however they are not compressed.
+It supports JPEG/PNG (with creating thumbnails), and GIF/SVG (without creating thumbnails).
 
-By default file compression is disabled (see [Configuration/Images](#images-1)), due to long execution time.
-It is recommended to enable compression just before push to server, and have it disabled during development process.
+Images module can be set in *thumbnails* mode. This way every image contained in special directory will be:
+1. Optimized (optionally)
+2. Copied to output location
+3. And copied once more and resized, and after that, placed in output location with .thumb suffix
 
 ### Fonts
 *Fonts* module, for now, is made only for copying files to appropriate folder.
@@ -216,8 +203,11 @@ js/combine_name | String | `app` | If *js/combine* is set to true, then *js/comb
 
 Key | Values | Default | Description
 --- | ------ | ------- | -----------
-paths/images | String | `./assets/images/` | Path of directory with images
-images/compress | Boolean | `false` | Determines wheter module should compress files or not
+paths/images | String | `./assets/images/` | Path to directory with images
+images/compress | Boolean | `false` | Determines whether module should compress files or not
+images/thumbnails | Boolean | `false` | Determines whether module should generate thumbnails or not
+images/thumbnails_dir | String | `thumbs/` | Path to directory with images, from which thumbnails should be generated
+images/thumbnails_size | String | `150x150` | Determines size of generated thumbnail (see [Image Magick/Image Geometry Doc](http://www.imagemagick.org/script/command-line-processing.php#geometry) for more information)
 
 #### Fonts
 
@@ -249,6 +239,8 @@ Release plan below is updated systematically
 - [x] v0.5.0 Images module
 - [x] v0.6.0 Fonts module
 - [x] v0.7.0 Slim module
-- [ ] v0.7.1 Generating font face rules
-- [ ] v0.7.2 Converting fonts
+- [ ] v0.8.0 Bugfix, and generating image thumbnails
+- [ ] v0.8.1 Generating font face rules
+- [ ] v0.8.2 Converting fonts
+- [ ] v0.9.0 Bugfix, and image optimalization
 - [ ] v1.0.0 Beavero official release along with binary for command-line execution

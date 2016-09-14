@@ -10,5 +10,8 @@
   ],
   "logger": {
   	"level": "debug"
+  },
+  "images": {
+    "thumbnails": true
   }
 }

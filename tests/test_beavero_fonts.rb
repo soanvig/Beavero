@@ -25,9 +25,11 @@ class TestBeaveroFonts < Test::Unit::TestCase
     fonts_files = Dir.glob('./**/*').reject do |path|
       File.directory? path
     end
+    fonts_files.map! { |file| File.basename(file) }
 
     Dir.chdir('../../public')
     public_files = Dir.glob('./**/*')
+    public_files.map! { |file| File.basename(file) }
 
     assert_equal( [], fonts_files - public_files )
 
