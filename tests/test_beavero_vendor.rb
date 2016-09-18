@@ -21,14 +21,21 @@ class TestBeaveroVendor < Test::Unit::TestCase
   end
 
   def test_build
-    Dir.chdir('vendor')
-    vendor_files = Dir.glob('./**/*')
+    puts "Test: Vendor module/build"
 
-    Dir.chdir('../public')
-    public_files = Dir.glob('./**/*')
+    assets_files = Dir.glob('vendor/**/*')
+                   .reject { |val| File.directory? val }
+                   .map { |val| File.basename(val) }
+    public_files = Dir.glob('public/**/*')
+                   .reject { |val| File.directory? val }
+                   .map { |val| File.basename(val) }
 
-    assert_equal( [], vendor_files - public_files )
+    count = 0
 
-    Dir.chdir('..')
+    assets_files.each do |file|
+      count += 1 if public_files.include? file
+    end
+
+    assert_equal( assets_files.count, count )
   end
 end

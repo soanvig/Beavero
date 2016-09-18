@@ -21,19 +21,17 @@ class TestBeaveroUglifier < Test::Unit::TestCase
   end
 
   def test_build
-    # Uglifier tests don't work due to TheRubyRacer problem with redefining functions.
-    # Uglifier therefore is tested on seperated playground
-  end
+    require 'uglifier'
 
-  def test_search_files
-    files = BeaveroUglifier.send('search_files')
-    wd = Beavero.config[:paths][:app]
-    expected_files = [
-      wd + "/./assets/js/app.js",
-      wd + "/./assets/js/scripts.js",
-      wd + "/./assets/js/folder/folderscript.js"
-    ]
+    puts "Test: Uglifier module/build"
 
-    assert_equal(expected_files, files)
+    assets_files = Dir.glob('assets/js/**/*')
+                   .reject { |val| File.directory? val }
+
+    joined_files = assets_files.map { |file| File.read(file) }.join
+    uglified_files = Uglifier.compile(joined_files)
+    result_file = File.read('public/app.min.js')
+
+    assert_equal( uglified_files, result_file )
   end
 end

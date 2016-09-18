@@ -21,20 +21,34 @@ class TestBeaveroImages < Test::Unit::TestCase
   end
 
   def test_build
-    Dir.chdir('assets/images')
-    images_files = Dir.glob('./**/*').reject do |path|
-      File.directory? path
+    puts "Test: Images module/build"
+
+    assets_files = Dir.glob('assets/images/**/*')
+                   .reject { |val| File.directory? val }
+    public_files = Dir.glob('public/**/*')
+                   .reject { |val| File.directory? val }
+                   .map { |val| File.basename(val) }
+
+    # Add thumbnail files to assets_files
+    # .clone because of endless loop
+    assets_files.clone.each do |file|
+      # but only if the file is in thumbs directory 
+      # (.dirname is file's parent directory, and .basename is its name )
+      if File.basename( File.dirname(file) ) == 'thumbs'
+        ext = File.extname(file)
+        name = File.basename(file, ext)
+        assets_files << name + '.thumb' + ext
+      end
     end
-    images_files.map! { |image| File.basename(image) }
 
-    Dir.chdir('../../public')
-    public_files = Dir.glob('./**/*')
-    public_files.map! { |file| File.basename(file) }
+    assets_files.map! { |val| File.basename(val) }
 
-    puts public_files
+    count = 0
 
-    assert_equal( [], images_files - public_files )
+    assets_files.each do |file|
+      count += 1 if public_files.include? file
+    end
 
-    Dir.chdir('..')
+    assert_equal( assets_files.count, count )
   end
 end

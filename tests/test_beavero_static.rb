@@ -21,14 +21,21 @@ class TestBeaveroStatic < Test::Unit::TestCase
   end
 
   def test_build
-    Dir.chdir('static')
-    static_files = Dir.glob('./**/*')
+    puts "Test: Static module/build"
 
-    Dir.chdir('../public')
-    public_files = Dir.glob('./**/*')
+    assets_files = Dir.glob('static/**/*')
+                   .reject { |val| File.directory? val }
+                   .map { |val| File.basename(val) }
+    public_files = Dir.glob('public/**/*')
+                   .reject { |val| File.directory? val }
+                   .map { |val| File.basename(val) }
 
-    assert_equal( [], static_files - public_files )
+    count = 0
 
-    Dir.chdir('..')
+    assets_files.each do |file|
+      count += 1 if public_files.include? file
+    end
+
+    assert_equal( assets_files.count, count )
   end
 end

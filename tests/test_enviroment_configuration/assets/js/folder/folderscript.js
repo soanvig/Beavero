@@ -1,4 +1,4 @@
-function initMap() {
+function initScript() {
         var originalMapCenter = new google.maps.LatLng(-25.363882, 131.044922);
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 4,

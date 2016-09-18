@@ -21,11 +21,15 @@ class TestBeaveroSlim < Test::Unit::TestCase
   end
 
   def test_build
+    puts "Test: Slim module/build"
+
     html = File.read('public/index.html')
     assert_equal("<title>Super star</title><div class=\"content\"><ul><li>I am so awesome content</li><li>Really</li></ul></div>The rest of page<partial>I'm parsed partial</partial>And I'm unparsed partial!", html)
   end
 
   def test_search_layouts
+    puts "Test: Slim module/search_layouts"
+
     layouts = BeaveroSlim.send('search_layouts')
 
     assert_equal(
@@ -35,6 +39,8 @@ class TestBeaveroSlim < Test::Unit::TestCase
   end
 
   def test_search_files
+    puts "Test: Slim module/search_files"
+
     files = BeaveroSlim.send('search_files')
 
     assert_equal(
