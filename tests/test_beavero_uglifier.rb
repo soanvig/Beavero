@@ -28,7 +28,7 @@ class TestBeaveroUglifier < Test::Unit::TestCase
     assets_files = Dir.glob('assets/js/**/*')
                    .reject { |val| File.directory? val }
 
-    joined_files = assets_files.map { |file| File.read(file) }.join
+    joined_files = assets_files.map { |file| File.read(file) }.join(' ')
     uglified_files = Uglifier.compile(joined_files)
     result_file = File.read('public/app.min.js')
 

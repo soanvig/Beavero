@@ -9,30 +9,27 @@ module BeaveroUglifier
     check_configuration(config)
 
     files = search_files
-    full_output = {}
+    files_content = files.map { |file| File.read(file) }
 
-    files.each do |file|
-      filename = File.basename(file, '.*')
-      content = File.read(file)
-      output = Uglifier.compile(content)
+    # If combine then:
+    # - change files to combine name file to mimic one file 
+    # - combine content of all files
+    if @@config[:js][:combine]
+      files = [ @@config[:js][:combine_name] ]
+      files_content = [files_content.join(' ')]
 
-      Beavero.log("Uglifier: '" + File.basename(file).italic + "' uglified.", 'info')
-
-      full_output[filename] = output
+      Beavero.log("Uglifier: All files combined.", 'info')
     end
 
-    full_output.each do |filename, output|
-      target = if @@config[:js][:combine]
-        File.join( @@config[:paths][:app], @@config[:paths][:output], @@config[:js][:combine_name] + '.min' + '.js' )
-      else
-        File.join( @@config[:paths][:app], @@config[:paths][:output], filename + '.min' + '.js' )
-      end
+    files.each_with_index do |file, index|
+      filename = File.basename(file, '.*')
+      output = Uglifier.compile( files_content[index] )
+
+      target = File.join( @@config[:paths][:app], @@config[:paths][:output], filename + '.min' + '.js' )
 
       File.write( target, output, { mode: 'a' } )
-    end
 
-    if @@config[:js][:combine]
-      Beavero.log("Uglifier: All files combined.", 'info')
+      Beavero.log("Uglifier: '" + File.basename(file).italic + "' uglified.", 'info')
     end
 
     Beavero.log("Uglifier builded successfully!", 'success')
