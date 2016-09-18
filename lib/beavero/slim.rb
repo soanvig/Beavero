@@ -46,6 +46,10 @@ module BeaveroSlim
     @@config[:paths][:slim_includes] = './assets/slim/partials/'    unless @@config[:paths][:slim_includes]
 
     @@config[:slim] = {}                                            unless @@config[:slim]
+    @@config[:slim][:compress] = true                               unless @@config[:slim][:compress]
+
+    # Slim configuration
+    Slim::Engine.options[:pretty] = !@@config[:slim][:compress] # invertion of option
   end
 
   def self.search_layouts

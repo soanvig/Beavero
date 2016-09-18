@@ -222,6 +222,7 @@ Key | Values | Default | Description
 paths/slim | String | `./assets/slim/` | Path of directory with all slim files
 paths/slim_layouts | String | `./assets/slim/layouts/` | Path of directory with layouts files
 paths/slim_includes | String | `./assets/slim/partials/` | Path of directory with partials files (directory in which Slim module will search for files called by `include`)
+slim/compress | Boolean | `true` | Determines whether module should compress HTML file or keep it indented
 
 ## Release plan
 https://github.com/soanvig/Beavero/releases
