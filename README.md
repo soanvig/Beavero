@@ -163,7 +163,7 @@ Sample configuration file can look like this:
 
 Key | Values | Default | Description
 --- | ------ | ------- | -----------
-modules | ["static", "vendor", "sass", "uglifier"] | None | Modules which should be used by Beavero
+modules | ["static", "vendor", "sass", "uglifier", "fonts", "images", "slim"] | None | Modules which should be used by Beavero
 paths/app | String | Beavero's script execution path | Beavero's working directory (system absolute path)
 paths/output | String | `./public/` | Output of Beavero's building
 logger/level | String | `info` | Level of Beavero logger. See [Rubydoc/Logger](https://ruby-doc.org/stdlib-2.1.0/libdoc/logger/rdoc/Logger.html) page for more information about levels
