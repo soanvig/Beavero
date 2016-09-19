@@ -41,12 +41,18 @@ module BeaveroSlim
     @@config = config
 
     # Defaults
-    @@config[:paths][:slim] = './assets/slim/'                      unless @@config[:paths][:slim]
-    @@config[:paths][:slim_layouts] = './assets/slim/layouts/'      unless @@config[:paths][:slim_layouts]
-    @@config[:paths][:slim_includes] = './assets/slim/partials/'    unless @@config[:paths][:slim_includes]
+    config = {
+      paths: {
+        slim: './assets/slim/',
+        slim_layouts: './assets/slim/layouts/',
+        slim_includes: './assets/slim/partials/'
+      },
+      slim: {
+        compress: true
+      }
+    }
 
-    @@config[:slim] = {}                                            unless @@config[:slim]
-    @@config[:slim][:compress] = true                               unless @@config[:slim][:compress]
+    @@config = config.deep_merge( @@config )
 
     # Slim configuration
     Slim::Engine.options[:pretty] = !@@config[:slim][:compress] # invertion of option

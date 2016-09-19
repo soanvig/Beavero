@@ -19,6 +19,12 @@ module BeaveroVendor
     @@config = config
 
     # Defaults
-    @@config[:paths][:vendor] = './vendor/' unless @@config[:paths][:vendor]
+    config = {
+      paths: {
+        vendor: './vendor/',
+      }
+    }
+
+    @@config = config.deep_merge( @@config )
   end
 end

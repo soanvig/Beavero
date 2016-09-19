@@ -41,11 +41,19 @@ module BeaveroUglifier
     @@config = config
 
     # Defaults
-    @@config[:paths][:js] = './assets/js/' unless @@config[:paths][:js]
+    config = {
+      paths: {
+        js: './assets/js/',
+        slim_layouts: './assets/slim/layouts/',
+        slim_includes: './assets/slim/partials/'
+      },
+      js: {
+        combine: false,
+        combine_name: 'app'
+      }
+    }
 
-    @@config[:js] = {}                      unless @@config[:js]
-    @@config[:js][:combine] = false         unless @@config[:js][:combine]
-    @@config[:js][:combine_name] = 'app'    unless @@config[:js][:combine_name]
+    @@config = config.deep_merge( @@config )
   end
 
   def self.search_files

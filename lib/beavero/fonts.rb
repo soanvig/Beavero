@@ -33,9 +33,15 @@ module BeaveroFonts
     @@config = config
 
     # Defaults
-    @@config[:paths][:fonts] = './assets/fonts/' unless @@config[:paths][:fonts]
+    config = {
+      paths: {
+        fonts: './assets/fonts/'
+      },
+      fonts: {
+        ext: ['ttf', 'TTF', 'eot', 'eot', 'woff', 'WOFF', 'woff2', 'WOFF2', 'svg', 'SVG', 'ttc', 'TTC', 'otf', 'OTF'],
+      }
+    }
 
-    @@config[:fonts] = {}                         unless @@config[:fonts]
-    @@config[:fonts][:ext] = ['ttf', 'TTF', 'eot', 'eot', 'woff', 'WOFF', 'woff2', 'WOFF2', 'svg', 'SVG', 'ttc', 'TTC', 'otf', 'OTF']
+    @@config = config.deep_merge( @@config )
   end
 end

@@ -39,15 +39,23 @@ module BeaveroSass
     @@config = config
 
     # Defaults
-    @@config[:paths][:sass] = './assets/scss/'                              unless @@config[:paths][:sass]
-    @@config[:sass] = {}                                                    unless @@config[:sass]
-    @@config[:sass][:style] = 'compressed'                                  unless @@config[:sass][:style]
-    @@config[:sass][:main_file] = 'main.scss'                               unless @@config[:sass][:main_file]
+    config = {
+      paths: {
+        sass: './assets/scss/' 
+      },
+      sass: {
+        style: 'compressed',
+        main_file: 'main.scss',
+        output_ext: '.min.css'
+      }
+    }
+
     # Syntax by default is defined by :main_file extension
-    @@config[:sass][:syntax] = @@config[:sass][:main_file].split('.').last  unless @@config[:sass][:syntax]
+    config[:sass][:syntax] = config[:sass][:main_file].split('.').last
     # Output filename by default is defined by :main_file name
-    @@config[:sass][:output] = @@config[:sass][:main_file].split('.').first unless @@config[:sass][:output]
-    @@config[:sass][:output_ext] = '.min.css'                               unless @@config[:sass][:output_ext]
-    @@config[:sass][:load_paths] = [ File.join( @@config[:paths][:app], @@config[:paths][:sass] ) ]
+    config[:sass][:output] = config[:sass][:main_file].split('.').first
+    config[:sass][:load_paths] = [ File.join( @@config[:paths][:app], config[:paths][:sass] ) ]
+
+    @@config = config.deep_merge( @@config )
   end
 end

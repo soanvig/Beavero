@@ -19,6 +19,12 @@ module BeaveroStatic
     @@config = config
 
     # Defaults
-    @@config[:paths][:static] = './static/' unless @@config[:paths][:static]
+    config = {
+      paths: {
+        static: './static/',
+      }
+    }
+
+    @@config = config.deep_merge( @@config )
   end
 end

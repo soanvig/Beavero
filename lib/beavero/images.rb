@@ -32,15 +32,20 @@ module BeaveroImages
     @@config = config
 
     # Defaults
-    @@config[:paths][:images] = './assets/images/' unless @@config[:paths][:images]
+    config = {
+      paths: {
+        images: './assets/images/'
+      },
+      images: {
+        ext: ['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'svg', 'SVG', 'gif', 'GIF'],
+        compress: false,
+        thumbnails: false,
+        thumbnails_dir: 'thumbs/',
+        thumbnails_size: '150x150'
+      }
+    }
 
-    @@config[:images] = {}                            unless @@config[:images]
-    @@config[:images][:ext] = ['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'svg', 'SVG', 'gif', 'GIF']
-    @@config[:images][:compress] = false              unless @@config[:images][:compress]
-    @@config[:images][:thumbnails] = false            unless @@config[:images][:thumbnails]
-
-    @@config[:images][:thumbnails_dir] = 'thumbs/'    unless @@config[:images][:thumbnails_dir]
-    @@config[:images][:thumbnails_size] = '150x150'   unless @@config[:images][:thumbnails_size]
+    @@config = config.deep_merge( @@config )
   end
 
   def self.search_files
