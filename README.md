@@ -244,4 +244,4 @@ Release plan below is updated systematically
 - [ ] v0.8.1 Generating font face rules
 - [ ] v0.8.2 Converting fonts
 - [ ] v0.9.0 Bugfix, and image optimalization
-- [ ] v1.0.0 Beavero official release along with binary for command-line execution
+- [ ] v1.0.0 Beavero official release along with binary for command-line execution, and *watch* function
