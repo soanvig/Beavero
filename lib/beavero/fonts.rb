@@ -39,9 +39,25 @@ module BeaveroFonts
       },
       fonts: {
         ext: ['ttf', 'TTF', 'eot', 'eot', 'woff', 'WOFF', 'woff2', 'WOFF2', 'svg', 'SVG', 'ttc', 'TTC', 'otf', 'OTF'],
+        rules: true,
+        rules_name: 'fonts'
       }
     }
 
     @@config = config.deep_merge( @@config )
+  end
+
+  def self.generate_rules(files)
+    # Create hash of fonts, where 'name' is font name and contains array of font files
+    fonts = {}
+    files.each do |file|
+      name = File.basename(file, '.*')
+      name = name.gsub( /\_/, ' ' ).split.map(&:capitalize).join(' ')
+
+      fonts[name] = [] unless fonts[name]
+      fonts[name] << file
+    end
+
+    
   end
 end

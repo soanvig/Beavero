@@ -4,6 +4,8 @@ require 'colorize'
 require 'fileutils'
 
 class Beavero
+  @@files = []
+
   def self.build
     load_configuration
     load_logger
@@ -12,6 +14,7 @@ class Beavero
 
     load_modules
     create_output
+    list_files
     build_modules
 
     log('Building finished!', 'success')
@@ -42,6 +45,14 @@ class Beavero
   end
 
   private
+
+  def self.list_files
+    files = Dir.glob( File.join(@@config[:paths][:app], '**', '*') )
+
+    # Reject directories
+    files.reject! { |path| File.directory? path }
+  end
+
 
   def self.load_logger
     unless defined? @@logger

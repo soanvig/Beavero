@@ -31,9 +31,11 @@ class TestBeaveroSlim < Test::Unit::TestCase
     puts "Test: Slim module/search_layouts"
 
     layouts = BeaveroSlim.send('search_layouts')
+    path = File.join(Beavero.config[:paths][:app], './assets/slim/layouts/main.slim')
+
 
     assert_equal(
-      {"main"=>"/home/mortimer/Ruby/My Gems/Beavero/tests/test_enviroment/./assets/slim/layouts/main.slim"},
+      {"main"=>path},
       layouts
     )
   end
@@ -42,9 +44,10 @@ class TestBeaveroSlim < Test::Unit::TestCase
     puts "Test: Slim module/search_files"
 
     files = BeaveroSlim.send('search_files')
+    path = File.join(Beavero.config[:paths][:app], './assets/slim/index.slim')
 
     assert_equal(
-      ['/home/mortimer/Ruby/My Gems/Beavero/tests/test_enviroment/./assets/slim/index.slim'],
+      [path],
       files
     )
   end
